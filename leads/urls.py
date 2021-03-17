@@ -5,5 +5,6 @@ from .views import *
 app_name = 'leads'
 
 urlpatterns = [
-    path('', home_page),
+    path('', lead_list),
+    path('<pk>/', lead_detail)
 ]

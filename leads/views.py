@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect, resolve_url
+from django.shortcuts import HttpResponseRedirect, render, redirect
+from django.urls import reverse
 
 from .models import Lead
 from .forms import LeadForm
@@ -32,7 +33,7 @@ def lead_create(request):
 
         if form.is_valid():
             form.save()
-            return resolve_url('lead-detail')
+            return redirect('lead-list')
 
     context = {
         'form': form,
@@ -50,7 +51,7 @@ def lead_update(request, pk):
 
         if form.is_valid():
             form.save()
-            return redirect('./')
+            return HttpResponseRedirect(reverse('lead-detail', args=[pk]))
 
     context = {
         'lead': lead,

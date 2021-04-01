@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lead update</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}
+    Lead updation
+{% endblock title %}
+
+{% block content %}
     <a href="{% url 'lead-detail' lead.id %}">Go back to {{ lead.first_name }} {{ lead.last_name }}</a>
     <hr>
     <h1>Update information about {{ lead.first_name }} {{ lead.last_name }}</h1>
@@ -14,5 +13,4 @@
         {{ form.as_p }}
         <button type="submit">Update</button>
     </form>
-</body>
-</html>
+{% endblock content %}

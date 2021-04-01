@@ -1,11 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home page</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}
+    {{ lead.first_name }} {{ lead.last_name }}
+{% endblock title %}
+
+{% block content %}
     <a href="{% url 'lead-list' %}">Go back to leads</a>
     |
     <a href="{% url 'lead-update' lead.id %}">Update a lead</a>
@@ -15,5 +14,5 @@
     <h1>This is the details of {{ lead.first_name }}</h1>
     <p>The persons age: {{ lead.age }}</p>
     <p>The agent responsible for this lead is {{ lead.agent }}</p>
-</body>
-</html>
+{% endblock content %}
+

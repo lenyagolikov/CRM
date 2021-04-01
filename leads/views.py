@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, resolve_url
 
 from .models import Lead
 from .forms import LeadForm
@@ -32,7 +32,7 @@ def lead_create(request):
 
         if form.is_valid():
             form.save()
-            return redirect('/leads')
+            return resolve_url('lead-detail')
 
     context = {
         'form': form,
@@ -63,4 +63,4 @@ def lead_update(request, pk):
 def lead_delete(request, pk):
     lead = Lead.objects.get(id=pk)
     lead.delete()
-    return redirect('/leads')
+    return redirect('lead-list')

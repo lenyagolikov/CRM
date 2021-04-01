@@ -6,7 +6,7 @@
     <title>Lead update</title>
 </head>
 <body>
-    <a href="./">Go back to lead</a>
+    <a href="{% url 'lead-detail' lead.id %}">Go back to {{ lead.first_name }} {{ lead.last_name }}</a>
     <hr>
     <h1>Update information about {{ lead.first_name }} {{ lead.last_name }}</h1>
     <form method="post">

@@ -6,11 +6,11 @@
     <title>Home page</title>
 </head>
 <body>
-    <a href="/leads">Go back to leads</a>
+    <a href="{% url 'lead-list' %}">Go back to leads</a>
     |
-    <a href="update">Update a lead</a>
+    <a href="{% url 'lead-update' lead.id %}">Update a lead</a>
     |
-    <a href="delete">Delete a lead</a>
+    <a href="{% url 'lead-delete' lead.id %}">Delete a lead</a>
     <hr>
     <h1>This is the details of {{ lead.first_name }}</h1>
     <p>The persons age: {{ lead.age }}</p>

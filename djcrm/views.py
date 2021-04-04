@@ -1,10 +1,16 @@
-from django.shortcuts import render
-from django.views import generic
+from django.views.generic import TemplateView, CreateView
+from django.urls import reverse
+
+from .forms import CustomUserCreationForm
 
 
-class LandingPageView(generic.TemplateView):
+class LandingPageView(TemplateView):
     template_name = 'landing.html'
 
 
-def landing_page(request):
-    return render(request, 'landing.html')
+class SignUpView(CreateView):
+    template_name = 'registration/signup.html'
+    form_class = CustomUserCreationForm
+
+    def get_success_url(self):
+        return reverse('login')

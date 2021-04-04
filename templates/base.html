@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +10,7 @@
         CRM
     {% endblock title %}
     </title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body>

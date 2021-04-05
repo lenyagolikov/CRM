@@ -1,12 +1,16 @@
 from django import forms
+from django.contrib.auth import get_user_model
 
-from leads.models import Agent
+User = get_user_model()
 
 
 class AgentForm(forms.ModelForm):
 
     class Meta:
-        model = Agent
+        model = User
         fields = (
-            'user',
+            'email',
+            'username',
+            'first_name',
+            'last_name',
         )

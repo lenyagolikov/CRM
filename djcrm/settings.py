@@ -134,6 +134,6 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 # Redirect after login/logout/no permissions
 
-LOGIN_REDIRECT_URL = 'lead-list'
+LOGIN_REDIRECT_URL = 'leads:lead-list'
 LOGOUT_REDIRECT_URL = 'landing-page'
 LOGIN_URL = '/login'

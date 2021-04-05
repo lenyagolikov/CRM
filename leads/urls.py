@@ -4,6 +4,7 @@ from .views import (
     LeadListView, LeadDetailView, LeadCreateView, LeadUpdateView, LeadDeleteView
 )
 
+app_name = 'leads'
 
 urlpatterns = [
     path('', LeadListView.as_view(), name='lead-list'),

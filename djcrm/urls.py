@@ -12,7 +12,7 @@ urlpatterns = [
     path('signup/', SignUpView.as_view(), name='signup'),
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
-    path('leads/', include('leads.urls')),
+    path('leads/', include('leads.urls', namespace='leads')),
 ]
 
 if settings.DEBUG:

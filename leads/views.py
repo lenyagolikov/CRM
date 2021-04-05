@@ -15,7 +15,7 @@ class LeadListView(LoginRequiredMixin, generic.ListView):
 
 
 class LeadDetailView(LoginRequiredMixin, generic.DetailView):
-    """View for displaying one lead"""
+    """View for displaying a lead"""
     template_name = 'leads/lead_detail.html'
     queryset = Lead.objects.all()
     context_object_name = 'lead'

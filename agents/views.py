@@ -1,12 +1,12 @@
 from django.urls import reverse
 from django.views import generic
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 from leads.models import Agent
 from .forms import AgentForm
+from .mixins import OrganisorAndLoginRequiredMixin
 
 
-class AgentListView(LoginRequiredMixin, generic.ListView):
+class AgentListView(OrganisorAndLoginRequiredMixin, generic.ListView):
     """View for displaying agents"""
     template_name = 'agents/agent_list.html'
     context_object_name = 'agents'
@@ -17,10 +17,9 @@ class AgentListView(LoginRequiredMixin, generic.ListView):
         return Agent.objects.filter(organisation=organisation)
 
 
-class AgentDetailView(LoginRequiredMixin, generic.DetailView):
+class AgentDetailView(OrganisorAndLoginRequiredMixin, generic.DetailView):
     """View for displaying an agent"""
     template_name = 'agents/agent_detail.html'
-    context_object_name = "agent"
 
     def get_queryset(self):
         """Filter agents, hides foreign agents"""
@@ -28,7 +27,7 @@ class AgentDetailView(LoginRequiredMixin, generic.DetailView):
         return Agent.objects.filter(organisation=organisation)
 
 
-class AgentCreateView(LoginRequiredMixin, generic.CreateView):
+class AgentCreateView(OrganisorAndLoginRequiredMixin, generic.CreateView):
     """View for creating a new agent"""
     template_name = 'agents/agent_create.html'
     form_class = AgentForm
@@ -45,11 +44,10 @@ class AgentCreateView(LoginRequiredMixin, generic.CreateView):
         return reverse('agents:agent-list')
 
 
-class AgentUpdateView(LoginRequiredMixin, generic.UpdateView):
+class AgentUpdateView(OrganisorAndLoginRequiredMixin, generic.UpdateView):
     """View for updating an agent"""
     template_name = 'agents/agent_update.html'
     form_class = AgentForm
-    context_object_name = "agent"
 
     def get_queryset(self):
         """Filter agents, hides foreign agents"""
@@ -61,10 +59,9 @@ class AgentUpdateView(LoginRequiredMixin, generic.UpdateView):
         return reverse('agents:agent-list')
 
 
-class AgentDeleteView(LoginRequiredMixin, generic.DeleteView):
+class AgentDeleteView(OrganisorAndLoginRequiredMixin, generic.DeleteView):
     """View for deleting the selected agent"""
     template_name = 'agents/agent_delete.html'
-    context_object_name = "agent"
 
     def get_queryset(self):
         """Filter agents, hides foreign agents"""

@@ -9,9 +9,9 @@ from .views import LandingPageView, SignUpView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', LandingPageView.as_view(), name='landing-page'),
-    path('signup/', SignUpView.as_view(), name='signup'),
-    path('login/', LoginView.as_view(), name='login'),
-    path('logout/', LogoutView.as_view(), name='logout'),
+    path('signup', SignUpView.as_view(), name='signup'),
+    path('login', LoginView.as_view(), name='login'),
+    path('logout', LogoutView.as_view(), name='logout'),
     path('leads/', include('leads.urls', namespace='leads')),
     path('agents/', include('agents.urls', namespace='agents')),
 ]

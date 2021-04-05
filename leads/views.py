@@ -29,7 +29,7 @@ class LeadCreateView(LoginRequiredMixin, generic.CreateView):
 
     def get_success_url(self):
         """Redirect after successful creation"""
-        return reverse('lead-list')
+        return reverse('leads:lead-list')
 
     def form_valid(self, form):
         """Sending email"""
@@ -50,7 +50,7 @@ class LeadUpdateView(LoginRequiredMixin, generic.UpdateView):
 
     def get_success_url(self):
         """Redirect after successful update"""
-        return reverse('lead-list')
+        return reverse('leads:lead-list')
 
 
 class LeadDeleteView(LoginRequiredMixin, generic.DeleteView):
@@ -60,4 +60,4 @@ class LeadDeleteView(LoginRequiredMixin, generic.DeleteView):
 
     def get_success_url(self):
         """Redirect after successful deletion"""
-        return reverse('lead-list')
+        return reverse('leads:lead-list')

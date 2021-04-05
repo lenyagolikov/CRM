@@ -11,7 +11,7 @@ class LandingPageView(TemplateView):
 
 class SignUpView(CreateView):
     """View for sign-up new users"""
-    template_name = 'registration/sign-up.html'
+    template_name = 'registration/sign_up.html'
     form_class = CustomUserCreationForm
 
     def get_success_url(self):

@@ -45,6 +45,7 @@ class Agent(models.Model):
 
 
 def post_user_created_signal(sender, instance, created, **kwargs):
+    """Created UserProfile for new user"""
     if created:
         UserProfile.objects.create(user=instance)
 

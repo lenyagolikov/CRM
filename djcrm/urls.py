@@ -12,7 +12,7 @@ from .views import LandingPageView, SignUpView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', LandingPageView.as_view(), name='landing-page'),
-    path('signup', SignUpView.as_view(), name='signup'),
+    path('signup', SignUpView.as_view(), name='sign-up'),
     path('login', LoginView.as_view(), name='login'),
     path('logout', LogoutView.as_view(), name='logout'),
     path('reset-password/', PasswordResetView.as_view(), name='reset-password'),

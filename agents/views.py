@@ -34,7 +34,7 @@ class AgentCreateView(OrganisorAndLoginRequiredMixin, generic.CreateView):
     form_class = AgentForm
 
     def form_valid(self, form):
-        """Assign organisation for new agent"""
+        """Invite agent to CRM and sending email him"""
         user = form.save(commit=False)
         user.is_agent = True
         user.is_organisor = False

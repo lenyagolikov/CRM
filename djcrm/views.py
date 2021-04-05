@@ -5,12 +5,15 @@ from .forms import CustomUserCreationForm
 
 
 class LandingPageView(TemplateView):
+    """View for start page"""
     template_name = 'landing.html'
 
 
 class SignUpView(CreateView):
-    template_name = 'registration/signup.html'
+    """View for sign-up new users"""
+    template_name = 'registration/sign-up.html'
     form_class = CustomUserCreationForm
 
     def get_success_url(self):
+        """Redirect after successful sign-up"""
         return reverse('login')

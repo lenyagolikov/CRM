@@ -3,6 +3,10 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
+    """
+    An abstract base class implementing a fully featured User model with
+    admin-compliant permissions.
+    """
     pass
 
 

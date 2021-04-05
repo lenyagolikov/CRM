@@ -128,7 +128,12 @@ STATIC_ROOT = "static_root"
 
 AUTH_USER_MODEL = 'leads.User'
 
+# For sending email
+
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+# Redirect after login/logout/no permissions
 
 LOGIN_REDIRECT_URL = 'lead-list'
 LOGOUT_REDIRECT_URL = 'landing-page'
+LOGIN_URL = '/login'

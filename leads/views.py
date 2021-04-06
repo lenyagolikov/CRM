@@ -6,7 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from agents.mixins import OrganisorAndLoginRequiredMixin
 from .models import Lead, Category
-from .forms import LeadForm, AssignLeadForm
+from .forms import LeadForm, AssignLeadForm, LeadCategoryUpdateForm
 
 
 class LeadListView(LoginRequiredMixin, generic.ListView):
@@ -83,7 +83,7 @@ class LeadUpdateView(OrganisorAndLoginRequiredMixin, generic.UpdateView):
 
     def get_success_url(self):
         """Redirect after successful update"""
-        return reverse('leads:lead-list')
+        return reverse("leads:lead-detail", kwargs={"pk": self.get_object().id})
 
 
 class LeadDeleteView(OrganisorAndLoginRequiredMixin, generic.DeleteView):
@@ -169,3 +169,23 @@ class CategoryDetailView(LoginRequiredMixin, generic.DetailView):
         else:
             queryset = Category.objects.filter(organisation=user.agent.organisation)
         return queryset
+
+
+class LeadCategoryUpdateView(OrganisorAndLoginRequiredMixin, generic.UpdateView):
+    """View for updating category an existing lead"""
+    template_name = 'leads/lead_category_update.html'
+    form_class = LeadCategoryUpdateForm
+
+    def get_queryset(self):
+        """Filter leads, hides foreign leads"""
+        user = self.request.user
+        if user.is_organisor:
+            queryset = Lead.objects.filter(organisation=user.userprofile)
+        else:
+            queryset = Lead.objects.filter(organisation=user.agent.organisation)
+            queryset = queryset.filter(agent__user=user)
+        return queryset
+
+    def get_success_url(self):
+        """Redirect after successful changing category"""
+        return reverse("leads:lead-detail", kwargs={"pk": self.get_object().id})

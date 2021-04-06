@@ -3,6 +3,7 @@
 {% block content %}
 <section class="text-gray-600 body-font">
   <div class="container px-5 py-12 mx-auto">
+    <a class="hover:text-blue-500" href="{% url 'leads:lead-list' %}">Go back to the leads</a>
     <div class="flex flex-col text-center w-full mb-10">
       <h1 class="sm:text-4xl text-3xl font-medium title-font mb-2 text-gray-900">Categories</h1>
       <p class="lg:w-2/3 mx-auto leading-relaxed text-base">
@@ -23,7 +24,7 @@
             </tr>   
             {% for category in category_list %}
                 <tr>
-                    <td class="px-3 py-2"><a href="{% url 'leads:category-detail' category.pk %}">{{ category.name }}</a></td>
+                    <td class="px-3 py-2"><a class="hover:text-blue-500" href="{% url 'leads:category-detail' category.pk %}">{{ category.name }}</a></td>
                     <td class="px-3 py-2">Lead count</td>
                 </tr>
             {% endfor %}

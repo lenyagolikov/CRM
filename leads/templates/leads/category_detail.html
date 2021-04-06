@@ -3,6 +3,7 @@
 {% block content %}
 <section class="text-gray-600 body-font">
   <div class="container px-5 py-12 mx-auto">
+    <a class="hover:text-blue-500" href="{% url 'leads:category-list' %}">Go back to the categories</a>
     <div class="flex flex-col text-center w-full mb-10">
       <h1 class="sm:text-4xl text-3xl font-medium title-font mb-2 text-gray-900">{{ category.name }}</h1>
       <p class="lg:w-2/3 mx-auto leading-relaxed text-base">

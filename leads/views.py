@@ -157,6 +157,7 @@ class CategoryListView(LoginRequiredMixin, generic.ListView):
 
 
 class CategoryDetailView(LoginRequiredMixin, generic.DetailView):
+    """View for displaying leads of the specified category"""
     template_name = 'leads/category_detail.html'
     context_object_name = 'category'
 

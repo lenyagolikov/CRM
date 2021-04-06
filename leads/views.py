@@ -1,5 +1,4 @@
 from django.core.mail import send_mail
-from django.db.models import query
 from django.views import generic
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -88,7 +87,7 @@ class LeadUpdateView(OrganisorAndLoginRequiredMixin, generic.UpdateView):
 
     def get_success_url(self):
         """Redirect after successful update"""
-        return reverse("leads:lead-detail", kwargs={"pk": self.get_object().id})
+        return reverse("leads:lead-update", kwargs={"pk": self.get_object().id})
 
 
 class LeadDeleteView(OrganisorAndLoginRequiredMixin, generic.DeleteView):
@@ -193,4 +192,4 @@ class LeadCategoryUpdateView(OrganisorAndLoginRequiredMixin, generic.UpdateView)
 
     def get_success_url(self):
         """Redirect after successful changing category"""
-        return reverse("leads:lead-detail", kwargs={"pk": self.get_object().id})
+        return reverse("leads:lead-category-update", kwargs={"pk": self.get_object().id})

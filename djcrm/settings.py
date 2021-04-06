@@ -127,6 +127,8 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT = 'static_root'
 
+# For user model 
+
 AUTH_USER_MODEL = 'leads.User'
 
 # For sending email

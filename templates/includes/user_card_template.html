@@ -7,7 +7,11 @@
         </div>
         <div class="flex-grow">
             <h2 class="text-gray-900 text-lg title-font font-medium mb-3">
-                {{ object.first_name }} {{ object.last_name }}
+                {% if object.first_name and object.last_name %}
+                    {{ object.first_name }} {{ object.last_name }}
+                {% else %}
+                    {{ object.username }}
+                {% endif %}
             </h2>
             <p class="leading-relaxed text-base">
                 Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine.

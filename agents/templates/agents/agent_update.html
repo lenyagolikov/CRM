@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load tailwind_filters %}
 
 {% block title %}
     {{ agent.user.username }}
@@ -17,17 +18,21 @@
                 </a>
                 </a>
                 <a href="{% url 'agents:agent-update' agent.pk %}" class="flex-grow text-indigo-500 border-b-2 border-indigo-500 py-2 text-lg px-1">
-                    Update Details
+                    Details
                 </a>
             </div>
             <form form method="post">
                 {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">Submit</button>
+                {{ form|crispy }}
+                <button type="submit" class="mt-2 w-full text-white bg-blue-500 hover:bg-blue-600 px-3 py-2 rounded-md">
+                    Update
+                </button>
             </form>
-            <a href="{% url 'agents:agent-delete' agent.pk %}" class="w-1/2 mt-3 flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
-                Delete
-            </a>
+            <div class="mt-5 py-5 border-t border-gray-200">
+                <a href="{% url 'agents:agent-delete' agent.pk %}" class="w-1/2 mt-3 text-white bg-red-500 border-0 py-2 px-6 focus:outline-none hover:bg-red-600 rounded">
+                    Delete
+                </a>
+            </div>
         </div>
         <img alt="ecommerce" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="https://dummyimage.com/400x400">
       </div>

@@ -102,7 +102,7 @@ class LeadDeleteView(OrganisorAndLoginRequiredMixin, generic.DeleteView):
 
 class AssignLeadView(OrganisorAndLoginRequiredMixin, generic.FormView):
     """Assign lead with an agent"""
-    template_name = "leads/assign_lead.html"
+    template_name = "leads/lead_assign.html"
     form_class = AssignLeadForm
 
     def get_form_kwargs(self, **kwargs):

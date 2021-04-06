@@ -56,12 +56,8 @@ class LeadCreateView(OrganisorAndLoginRequiredMixin, generic.CreateView):
     template_name = 'leads/lead_create.html'
     form_class = LeadForm
 
-    def get_success_url(self):
-        """Redirect after successful creation"""
-        return reverse('leads:lead-list')
-
     def form_valid(self, form):
-        """Added organisor for a lead after creating"""
+        """Added organisation for a lead after creating"""
         lead = form.save(commit=False)
         lead.organisation = self.request.user.userprofile
         lead.save()
@@ -74,6 +70,10 @@ class LeadCreateView(OrganisorAndLoginRequiredMixin, generic.CreateView):
             recipient_list=["jayhosee@gmail.com"],
         )
         return super(LeadCreateView, self).form_valid(form)
+    
+    def get_success_url(self):
+        """Redirect after successful creation"""
+        return reverse('leads:lead-list')
 
 
 class LeadUpdateView(OrganisorAndLoginRequiredMixin, generic.UpdateView):

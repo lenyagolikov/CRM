@@ -1,10 +1,11 @@
 from django.core.mail import send_mail
+from django.db.models import query
 from django.views import generic
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from agents.mixins import OrganisorAndLoginRequiredMixin
-from .models import Lead
+from .models import Lead, Category
 from .forms import LeadForm, AssignLeadForm
 
 
@@ -123,3 +124,33 @@ class AssignLeadView(OrganisorAndLoginRequiredMixin, generic.FormView):
         lead.agent = agent
         lead.save()
         return super(AssignLeadView, self).form_valid(form)
+
+
+class CategoryListView(LoginRequiredMixin, generic.ListView):
+    """View for displaying categories"""
+    template_name = 'leads/category_list.html'
+    context_object_name = 'category_list'
+
+    def get_context_data(self, **kwargs):
+        """Pass extra params to the template"""
+        context = super(CategoryListView, self).get_context_data(**kwargs)
+        user = self.request.user
+        
+        if user.is_organisor:
+            queryset = Lead.objects.filter(organisation=user.userprofile)
+        else:
+            queryset = Lead.objects.filter(organisation=user.agent.organisation)
+        
+        context.update({
+            "unassigned_lead_count": queryset.filter(category__isnull=True).count(),
+        })
+        return context
+
+    def get_queryset(self):
+        """Filter categories, hides foreign categories"""
+        user = self.request.user
+        if user.is_organisor:
+            queryset = Category.objects.filter(organisation=user.userprofile)
+        else:
+            queryset = Category.objects.filter(organisation=user.agent.organisation)
+        return queryset

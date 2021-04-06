@@ -21,7 +21,7 @@
         </div>
         <div class="flex flex-wrap -m-4">
             {% for agent in agents %}
-                {% include "includes/user_card_template.html" with object=agent.user url='agents:agent-detail' id=agent.pk%}
+                {% include "includes/user_card_template.html" with object=agent.user url='agents:agent-detail' id=agent.pk text='View this agent'%}
             {% endfor %}
         </div>
     </div>

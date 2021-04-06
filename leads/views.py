@@ -97,3 +97,5 @@ class LeadDeleteView(OrganisorAndLoginRequiredMixin, generic.DeleteView):
     def get_success_url(self):
         """Redirect after successful deletion"""
         return reverse('leads:lead-list')
+
+

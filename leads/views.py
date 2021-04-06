@@ -17,11 +17,23 @@ class LeadListView(LoginRequiredMixin, generic.ListView):
         """Filter leads, hides foreign leads"""
         user = self.request.user
         if user.is_organisor:
-            queryset = Lead.objects.filter(organisation=user.userprofile)
+            queryset = Lead.objects.filter(organisation=user.userprofile, agent__isnull=False)
         else:
             queryset = Lead.objects.filter(organisation=user.agent.organisation)
             queryset = queryset.filter(agent__user=user)
         return queryset
+    
+    def get_context_data(self, **kwargs):
+        """Pass extra params to the template"""
+        context = super(LeadListView, self).get_context_data(**kwargs)
+        user = self.request.user
+        if user.is_organisor:
+            queryset = Lead.objects.filter(organisation=user.userprofile, agent__isnull=True)
+            context.update({
+                "unassigned_leads": queryset,
+            })
+        return context
+
 
 class LeadDetailView(LoginRequiredMixin, generic.DetailView):
     """View for displaying a lead"""

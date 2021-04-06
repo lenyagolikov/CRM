@@ -24,16 +24,18 @@
                 {% include "includes/user_card_template.html" with object=lead url='leads:lead-detail' id=lead.pk text='View this lead'%}
             {% endfor %}
         </div>
-        <div class="w-full mb-6 py-6 flex justify-between items-center border-b border-gray-200">
-            <div>
-                <h1 class="text-4xl text-gray-800">Unassigned Leads</h1>
+        {% if unassigned_leads.exists %}
+            <div class="w-full mb-6 py-6 flex justify-between items-center border-b border-gray-200">
+                <div>
+                    <h1 class="text-4xl text-gray-800">Unassigned Leads</h1>
+                </div>
             </div>
-        </div>
-        <div class="flex flex-wrap -m-4">
-            {% for lead in unassigned_leads %}
-                {% include "includes/user_card_template.html" with object=lead url='leads:lead-detail' id=lead.pk text='Assign an agent'%}
-            {% endfor %}
-        </div>
+            <div class="flex flex-wrap -m-4">
+                {% for lead in unassigned_leads %}
+                    {% include "includes/user_card_template.html" with object=lead url='leads:assign-lead' id=lead.pk text='Assign an agent'%}
+                {% endfor %}
+            </div>
+        {% endif %}
     </div>
 </section>
 {% endblock content %}

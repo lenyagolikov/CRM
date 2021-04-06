@@ -5,7 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from agents.mixins import OrganisorAndLoginRequiredMixin
 from .models import Lead
-from .forms import LeadForm
+from .forms import LeadForm, AssignLeadForm
 
 
 class LeadListView(LoginRequiredMixin, generic.ListView):
@@ -99,3 +99,23 @@ class LeadDeleteView(OrganisorAndLoginRequiredMixin, generic.DeleteView):
         return reverse('leads:lead-list')
 
 
+class AssignLeadView(OrganisorAndLoginRequiredMixin, generic.FormView):
+    template_name = "leads/assign_lead.html"
+    form_class = AssignLeadForm
+
+    def get_form_kwargs(self, **kwargs):
+        kwargs = super(AssignLeadView, self).get_form_kwargs(**kwargs)
+        kwargs.update({
+            "request": self.request
+        })
+        return kwargs
+        
+    def get_success_url(self):
+        return reverse("leads:lead-list")
+
+    def form_valid(self, form):
+        agent = form.cleaned_data["agent"]
+        lead = Lead.objects.get(id=self.kwargs["pk"])
+        lead.agent = agent
+        lead.save()
+        return super(AssignLeadView, self).form_valid(form)

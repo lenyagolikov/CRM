@@ -100,10 +100,12 @@ class LeadDeleteView(OrganisorAndLoginRequiredMixin, generic.DeleteView):
 
 
 class AssignLeadView(OrganisorAndLoginRequiredMixin, generic.FormView):
+    """Assign lead with an agent"""
     template_name = "leads/assign_lead.html"
     form_class = AssignLeadForm
 
     def get_form_kwargs(self, **kwargs):
+        """Return the keyword arguments for instantiating the form"""
         kwargs = super(AssignLeadView, self).get_form_kwargs(**kwargs)
         kwargs.update({
             "request": self.request
@@ -111,9 +113,11 @@ class AssignLeadView(OrganisorAndLoginRequiredMixin, generic.FormView):
         return kwargs
         
     def get_success_url(self):
+        """Redirect after successful assigning"""
         return reverse("leads:lead-list")
 
     def form_valid(self, form):
+        """Save assign lead-agent in db"""
         agent = form.cleaned_data["agent"]
         lead = Lead.objects.get(id=self.kwargs["pk"])
         lead.agent = agent

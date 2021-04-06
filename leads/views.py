@@ -130,7 +130,16 @@ class CategoryListView(LoginRequiredMixin, generic.ListView):
     """View for displaying categories"""
     template_name = 'leads/category_list.html'
     context_object_name = 'category_list'
-
+    
+    def get_queryset(self):
+        """Filter categories, hides foreign categories"""
+        user = self.request.user
+        if user.is_organisor:
+            queryset = Category.objects.filter(organisation=user.userprofile)
+        else:
+            queryset = Category.objects.filter(organisation=user.agent.organisation)
+        return queryset
+    
     def get_context_data(self, **kwargs):
         """Pass extra params to the template"""
         context = super(CategoryListView, self).get_context_data(**kwargs)
@@ -145,6 +154,11 @@ class CategoryListView(LoginRequiredMixin, generic.ListView):
             "unassigned_lead_count": queryset.filter(category__isnull=True).count(),
         })
         return context
+
+
+class CategoryDetailView(LoginRequiredMixin, generic.DetailView):
+    template_name = 'leads/category_detail.html'
+    context_object_name = 'category'
 
     def get_queryset(self):
         """Filter categories, hides foreign categories"""

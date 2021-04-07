@@ -4,8 +4,8 @@ from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from agents.mixins import OrganisorAndLoginRequiredMixin
-from .models import Lead, Category
-from .forms import LeadForm, AssignLeadForm, LeadCategoryUpdateForm
+from .models import Lead
+from .forms import LeadForm, AssignLeadForm
 
 
 class LeadListView(LoginRequiredMixin, generic.ListView):
@@ -60,7 +60,6 @@ class LeadCreateView(OrganisorAndLoginRequiredMixin, generic.CreateView):
         lead = form.save(commit=False)
         lead.organisation = self.request.user.userprofile
         lead.save()
-        
         """Sending email"""
         send_mail(
             subject="A lead has been created",
@@ -87,7 +86,9 @@ class LeadUpdateView(OrganisorAndLoginRequiredMixin, generic.UpdateView):
 
     def get_success_url(self):
         """Redirect after successful update"""
-        return reverse("leads:lead-update", kwargs={"pk": self.get_object().id})
+        return reverse('leads:lead-list')
+        # if need reverse to page with extra params
+        # return reverse("leads:lead-update", kwargs={"pk": self.get_object().id})
 
 
 class LeadDeleteView(OrganisorAndLoginRequiredMixin, generic.DeleteView):
@@ -128,68 +129,3 @@ class AssignLeadView(OrganisorAndLoginRequiredMixin, generic.FormView):
         lead.agent = agent
         lead.save()
         return super(AssignLeadView, self).form_valid(form)
-
-
-class CategoryListView(LoginRequiredMixin, generic.ListView):
-    """View for displaying categories"""
-    template_name = 'leads/category_list.html'
-    context_object_name = 'category_list'
-    
-    def get_queryset(self):
-        """Filter categories, hides foreign categories"""
-        user = self.request.user
-        if user.is_organisor:
-            queryset = Category.objects.filter(organisation=user.userprofile)
-        else:
-            queryset = Category.objects.filter(organisation=user.agent.organisation)
-        return queryset
-    
-    def get_context_data(self, **kwargs):
-        """Pass extra params to the template"""
-        context = super(CategoryListView, self).get_context_data(**kwargs)
-        user = self.request.user
-        
-        if user.is_organisor:
-            queryset = Lead.objects.filter(organisation=user.userprofile)
-        else:
-            queryset = Lead.objects.filter(organisation=user.agent.organisation)
-        
-        context.update({
-            "unassigned_lead_count": queryset.filter(category__isnull=True).count(),
-        })
-        return context
-
-
-class CategoryDetailView(LoginRequiredMixin, generic.DetailView):
-    """View for displaying leads of the specified category"""
-    template_name = 'leads/category_detail.html'
-    context_object_name = 'category'
-
-    def get_queryset(self):
-        """Filter categories, hides foreign categories"""
-        user = self.request.user
-        if user.is_organisor:
-            queryset = Category.objects.filter(organisation=user.userprofile)
-        else:
-            queryset = Category.objects.filter(organisation=user.agent.organisation)
-        return queryset
-
-
-class LeadCategoryUpdateView(OrganisorAndLoginRequiredMixin, generic.UpdateView):
-    """View for updating category an existing lead"""
-    template_name = 'leads/lead_category_update.html'
-    form_class = LeadCategoryUpdateForm
-
-    def get_queryset(self):
-        """Filter leads, hides foreign leads"""
-        user = self.request.user
-        if user.is_organisor:
-            queryset = Lead.objects.filter(organisation=user.userprofile)
-        else:
-            queryset = Lead.objects.filter(organisation=user.agent.organisation)
-            queryset = queryset.filter(agent__user=user)
-        return queryset
-
-    def get_success_url(self):
-        """Redirect after successful changing category"""
-        return reverse("leads:lead-category-update", kwargs={"pk": self.get_object().id})

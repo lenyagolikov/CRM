@@ -64,8 +64,8 @@ class AgentUpdateView(OrganisorAndLoginRequiredMixin, generic.UpdateView):
 
     def get_queryset(self):
         """Filter agents, hides foreign agents"""
-        organisation = self.request.user.userprofile
-        return Agent.objects.filter(organisation=organisation)
+        user = self.request.user
+        return Agent.objects.filter(organisation=user.userprofile)
 
     def get_success_url(self):
         """Redirect after successful updation"""

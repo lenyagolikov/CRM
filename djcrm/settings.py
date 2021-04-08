@@ -131,7 +131,7 @@ STATIC_ROOT = 'static_root'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
-# For user model 
+# For user model
 
 AUTH_USER_MODEL = 'leads.User'
 
@@ -163,7 +163,7 @@ if not DEBUG:
     SECURE_HSTS_PRELOAD = True
     X_FRAME_OPTIONS = "DENY"
 
-    ALLOWED_HOSTS = ["*"] # in production use domain.com
+    ALLOWED_HOSTS = ["*"]  # in production use domain.com
 
     EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
     EMAIL_HOST = env("EMAIL_HOST")
@@ -172,3 +172,18 @@ if not DEBUG:
     EMAIL_USE_TLS = True
     EMAIL_PORT = env("EMAIL_PORT")
     DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
+    
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'WARNING',
+    },
+}

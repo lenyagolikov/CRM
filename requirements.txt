@@ -4,7 +4,9 @@ crispy-tailwind==0.4.0
 Django==3.1.7
 django-crispy-forms==1.11.2
 django-environ==0.4.5
+psycopg2-binary==2.8.6
 pycodestyle==2.7.0
 pytz==2021.1
 sqlparse==0.4.1
 toml==0.10.2
+whitenoise==5.2.0

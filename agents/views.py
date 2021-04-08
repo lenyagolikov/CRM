@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.core.mail import send_mail
 from django.urls import reverse
 from django.views import generic
@@ -50,6 +51,7 @@ class AgentCreateView(OrganisorAndLoginRequiredMixin, generic.CreateView):
             from_email='admin@test.com',
             recipient_list=[user.email],
         )
+        messages.success(self.request, "You have successfully created an agent!")
         return super(AgentCreateView, self).form_valid(form)
 
     def get_success_url(self):

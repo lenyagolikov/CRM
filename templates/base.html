@@ -18,6 +18,13 @@
         {% include 'navbar.html' %}
     </div>
     <div class="max-w-7xl">
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{% if message.tags == 'success' %} text-center bg-green-500 text-white{% endif %}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
         {% block content %}
         {% endblock content %}
     </div>

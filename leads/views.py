@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.core.mail import send_mail
 from django.views import generic
 from django.urls import reverse
@@ -56,6 +57,7 @@ class LeadCreateView(OrganisorAndLoginRequiredMixin, generic.CreateView):
             from_email="rezov.n@mail.ru",
             recipient_list=["jayhosee@gmail.com"],
         )
+        messages.success(self.request, "You have successfully created a lead!")
         return super(LeadCreateView, self).form_valid(form)
     
     def get_success_url(self):

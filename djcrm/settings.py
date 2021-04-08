@@ -135,7 +135,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 AUTH_USER_MODEL = 'leads.User'
 
-# For sending email
+# For sending email to console
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 

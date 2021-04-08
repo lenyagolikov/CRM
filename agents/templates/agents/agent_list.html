@@ -20,7 +20,13 @@
                         <thead class="bg-gray-50">
                             <tr>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Full Name
+                                First name
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Last name
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Username
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Email
@@ -33,11 +39,29 @@
                         <tbody>
                             {% for agent in object_list %}
                                 <tr class="bg-white">
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                        {{ agent.user.first_name }} {{ agent.user.last_name }}
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-700">
+                                        {% if agent.user.first_name %}
+                                        {{ agent.user.first_name }}
+                                        {% else %}
+                                        -
+                                        {% endif %}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-700">
+                                        {% if agent.user.last_name %}
+                                        {{ agent.user.last_name }}
+                                        {% else %}
+                                        -
+                                        {% endif %}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-purple-900 text-opacity-100 hover:text-blue-500">
+                                        <a href="{% url 'agents:agent-detail' agent.pk %} ">{{ agent.user.username }}</a> 
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        {{ agent.user.email }}
+                                        {% if agent.user.email %}
+                                        {{ agent.user.emal }}
+                                        {% else %}
+                                        -
+                                        {% endif %}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                         <a href="{% url 'agents:agent-update' agent.pk %}" class="text-indigo-600 hover:text-indigo-900">

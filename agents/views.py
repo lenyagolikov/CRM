@@ -39,7 +39,7 @@ class AgentCreateView(OrganisorAndLoginRequiredMixin, generic.CreateView):
         user = form.save(commit=False)
         user.is_agent = True
         user.is_organisor = False
-        user.set_password('allison12')
+        user.set_password('1234')
         user.save()
         Agent.objects.create(
             user=user,
@@ -70,8 +70,8 @@ class AgentUpdateView(OrganisorAndLoginRequiredMixin, generic.UpdateView):
         return Agent.objects.filter(organisation=user.userprofile)
 
     def get_success_url(self):
-        """Redirect after successful updation"""
-        return reverse('agents:agent-list')
+        """Redirect after successful update"""
+        return reverse("agents:agent-detail", kwargs={"pk": self.get_object().id})
 
 
 class AgentDeleteView(OrganisorAndLoginRequiredMixin, generic.DeleteView):

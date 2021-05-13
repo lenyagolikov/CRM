@@ -13,13 +13,12 @@ class LeadForm(forms.ModelForm):
             'age',
             'email',
             'phone_number',
-            'agent',
             'description',
         )
 
 
 class AssignLeadForm(forms.Form):
-    agent = forms.ModelChoiceField(queryset=Agent.objects.none())
+    agent = forms.ModelChoiceField(queryset=Agent.objects.none(), required=False)
 
     def __init__(self, *args, **kwargs):
         request = kwargs.pop("request")

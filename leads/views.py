@@ -81,9 +81,7 @@ class LeadUpdateView(OrganisorAndLoginRequiredMixin, generic.UpdateView):
 
     def get_success_url(self):
         """Redirect after successful update"""
-        return reverse('leads:lead-list')
-        # if need reverse to page with extra params
-        # return reverse("leads:lead-update", kwargs={"pk": self.get_object().id})
+        return reverse("leads:lead-detail", kwargs={"pk": self.get_object().id})
 
 
 class LeadDeleteView(OrganisorAndLoginRequiredMixin, generic.DeleteView):

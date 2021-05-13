@@ -25,12 +25,22 @@
                     <a href="{% url 'leads:lead-detail' lead.pk %}" class="flex-grow text-indigo-500 text-center border-b-2 border-indigo-500 py-2 text-lg px-1">
                         Overview
                     </a>
+                    {% if request.user.is_organisor%}
                     <a href="{% url 'leads:lead-update' lead.pk %}" class="flex-grow text-center border-b-2 border-gray-300 py-2 text-lg px-1">
                         Update Details
                     </a>
+                    {% endif %}
                 </div>
 
                 <p class="leading-relaxed mb-4">{{ lead.description }}</p>
+                <div class="flex border-t border-gray-300 py-2">
+                    <span class="text-gray-500">First Name</span>
+                    <span class="ml-auto text-gray-900">{{ lead.first_name }}</span>
+                </div>
+                <div class="flex border-t border-gray-300 py-2">
+                    <span class="text-gray-500">Last Name</span>
+                    <span class="ml-auto text-gray-900">{{ lead.last_name }}</span>
+                </div>
                 <div class="flex border-t border-gray-300 py-2">
                     <span class="text-gray-500">Age</span>
                     <span class="ml-auto text-gray-900">{{ lead.age }}</span>
@@ -39,9 +49,13 @@
                     <span class="text-gray-500">Email</span>
                     <span class="ml-auto text-gray-900">{{ lead.email }}</span>
                 </div>
-                <div class="flex border-t border-b mb-6 border-gray-300 py-2">
+                <div class="flex border-t border-gray-300 py-2">
                     <span class="text-gray-500">Phone Number</span>
                     <span class="ml-auto text-gray-900">{{ lead.phone_number }}</span>
+                </div>
+                <div class="flex border-t border-b mb-6 border-gray-300 py-2">
+                    <span class="text-gray-500">Agent</span>
+                    <span class="ml-auto text-gray-900">{{ lead.agent }}</span>
                 </div>
             </div>
         </div>

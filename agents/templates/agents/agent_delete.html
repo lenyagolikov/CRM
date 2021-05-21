@@ -6,7 +6,7 @@
 <div class="max-w-lg mx-auto">
     
     <div class="py-5 border-b border-gray-200">
-        <a class="hover:text-blue-500" href="{% url 'agents:agent-update' agent.pk %}">
+        <a class="hover:text-blue-500" href="{{ agent.get_update_url }}">
             {% if agent.user.first_name and agent.user.last_name %}
                 Go back to {{ agent.user.first_name }} {{ agent.user.last_name }}
             {% else %}

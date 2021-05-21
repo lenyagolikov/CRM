@@ -23,10 +23,10 @@
                 </div>
 
                 <div class="flex mb-4">
-                    <a href="{% url 'agents:agent-detail' agent.pk %}" class="flex-grow text-center border-b-2 border-gray-300 py-2 text-lg px-1">
+                    <a href="{{ agent.get_absolute_url }}" class="flex-grow text-center border-b-2 border-gray-300 py-2 text-lg px-1">
                         Overview
                     </a>
-                    <a href="{% url 'agents:agent-update' agent.pk %}" class="flex-grow text-indigo-500 text-center border-b-2 border-indigo-500 py-2 text-lg px-1">
+                    <a href="{{ agent.get_update_url }}" class="flex-grow text-indigo-500 text-center border-b-2 border-indigo-500 py-2 text-lg px-1">
                         Update Details
                     </a>
                 </div>
@@ -38,7 +38,7 @@
                 </form>
                 
                 <div class="mt-5 py-5 border-t border-gray-200">
-                    <a href="{% url 'agents:agent-delete' agent.pk %}" class="w-1/2 mt-3 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
+                    <a href="{{ agent.get_delete_url }}" class="w-1/2 mt-3 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
                         Delete
                     </a>
                 </div>

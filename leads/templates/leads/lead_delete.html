@@ -6,7 +6,7 @@
 <div class="max-w-lg mx-auto">
     
     <div class="py-5 border-b border-gray-200">
-        <a class="hover:text-blue-500" href="{% url 'leads:lead-update' lead.pk %}">
+        <a class="hover:text-blue-500" href="{{ lead.get_update_url }}">
         Go back to {{ lead.first_name }} {{ lead.last_name }}
         </a>
     </div>

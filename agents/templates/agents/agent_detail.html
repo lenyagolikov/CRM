@@ -22,10 +22,10 @@
                 </div>
 
                 <div class="flex mb-4">
-                    <a href="{% url 'agents:agent-detail' agent.pk %}" class="flex-grow text-indigo-500 text-center border-b-2 border-indigo-500 py-2 text-lg px-1">
+                    <a href="{{ agent.get_absolute_url }}" class="flex-grow text-indigo-500 text-center border-b-2 border-indigo-500 py-2 text-lg px-1">
                         Overview
                     </a>
-                    <a href="{% url 'agents:agent-update' agent.pk %}" class="flex-grow text-center border-b-2 border-gray-300 py-2 text-lg px-1">
+                    <a href="{{ agent.get_update_url }}" class="flex-grow text-center border-b-2 border-gray-300 py-2 text-lg px-1">
                         Update Details
                     </a>
                 </div>

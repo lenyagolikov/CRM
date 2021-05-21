@@ -1,3 +1,4 @@
+from django.shortcuts import reverse
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import post_save
@@ -37,10 +38,28 @@ class Lead(models.Model):
     def __repr__(self) -> str:
         return f'{self.first_name} {self.last_name}'
 
+    def get_absolute_url(self):
+        return reverse('leads:lead-detail', kwargs={'pk': self.pk})
+
+    def get_update_url(self):
+        return reverse('leads:lead-update', kwargs={'pk': self.pk})
+
+    def get_delete_url(self):
+        return reverse('leads:lead-delete', kwargs={'pk': self.pk})
+
 
 class Agent(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     organisation = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+
+    def get_absolute_url(self):
+        return reverse('agents:agent-detail', kwargs={'pk': self.pk})
+
+    def get_update_url(self):
+        return reverse('agents:agent-update', kwargs={'pk': self.pk})
+
+    def get_delete_url(self):
+        return reverse('agents:agent-delete', kwargs={'pk': self.pk})
 
     def __str__(self) -> str:
         return self.user.username

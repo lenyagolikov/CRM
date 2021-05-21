@@ -19,7 +19,7 @@ class AgentListView(OrganisorAndLoginRequiredMixin, generic.ListView):
         return Agent.objects.filter(organisation=organisation)
 
 
-class AgentDetailView(OrganisorAndLoginRequiredMixin, generic.DetailView):
+class AgentDetailView(generic.DetailView):
     """View for displaying an agent"""
     template_name = 'agents/agent_detail.html'
 
@@ -59,7 +59,7 @@ class AgentCreateView(OrganisorAndLoginRequiredMixin, generic.CreateView):
         return reverse('agents:agent-list')
 
 
-class AgentUpdateView(OrganisorAndLoginRequiredMixin, generic.UpdateView):
+class AgentUpdateView(generic.UpdateView):
     """View for updating an agent"""
     template_name = 'agents/agent_update.html'
     form_class = AgentForm
@@ -71,10 +71,10 @@ class AgentUpdateView(OrganisorAndLoginRequiredMixin, generic.UpdateView):
 
     def get_success_url(self):
         """Redirect after successful update"""
-        return reverse("agents:agent-detail", kwargs={"pk": self.get_object().id})
+        return reverse("agents:agent-detail", kwargs={"username": self.get_object().user.username})
 
 
-class AgentDeleteView(OrganisorAndLoginRequiredMixin, generic.DeleteView):
+class AgentDeleteView(generic.DeleteView):
     """View for deleting the selected agent"""
     template_name = 'agents/agent_delete.html'
 

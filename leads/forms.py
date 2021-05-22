@@ -4,8 +4,7 @@ from .models import Lead, Agent
 
 
 class LeadForm(forms.ModelForm):
-    agent = forms.ModelChoiceField(queryset=Agent.objects.none(), required=False)
-
+    
     class Meta:
         model = Lead
         fields = (

@@ -4,7 +4,7 @@ from .models import Lead, Agent
 
 
 class LeadForm(forms.ModelForm):
-    
+
     class Meta:
         model = Lead
         fields = (
@@ -22,7 +22,6 @@ class LeadForm(forms.ModelForm):
         agents = Agent.objects.filter(organisation=request.user.userprofile)
         super(LeadForm, self).__init__(*args, **kwargs)
         self.fields["agent"].queryset = agents
-
 
 
 class AssignLeadForm(forms.Form):

@@ -47,19 +47,23 @@ class Lead(models.Model):
     def get_delete_url(self):
         return reverse('leads:lead-delete', kwargs={'pk': self.pk})
 
+    def get_assign_url(self):
+        return reverse('leads:assign-lead', kwargs={'pk': self.pk})
+
 
 class Agent(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    slug = models.SlugField(max_length=20, unique=True, db_index=True)
     organisation = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
 
     def get_absolute_url(self):
-        return reverse('agents:agent-detail', kwargs={'pk': self.pk})
+        return reverse('agents:agent-detail', kwargs={'slug': self.slug})
 
     def get_update_url(self):
-        return reverse('agents:agent-update', kwargs={'pk': self.pk})
+        return reverse('agents:agent-update', kwargs={'slug': self.slug})
 
     def get_delete_url(self):
-        return reverse('agents:agent-delete', kwargs={'pk': self.pk})
+        return reverse('agents:agent-delete', kwargs={'slug': self.slug})
 
     def __str__(self) -> str:
         return self.user.username

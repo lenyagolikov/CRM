@@ -4,6 +4,7 @@ from .models import Lead, Agent
 
 
 class LeadForm(forms.ModelForm):
+    agent = forms.ModelChoiceField(queryset=Agent.objects.none(), required=False)
 
     class Meta:
         model = Lead
@@ -13,8 +14,16 @@ class LeadForm(forms.ModelForm):
             'age',
             'email',
             'phone_number',
+            'agent',
             'description',
         )
+
+    def __init__(self, *args, **kwargs):
+        request = kwargs.pop("request")
+        agents = Agent.objects.filter(organisation=request.user.userprofile)
+        super(LeadForm, self).__init__(*args, **kwargs)
+        self.fields["agent"].queryset = agents
+
 
 
 class AssignLeadForm(forms.Form):

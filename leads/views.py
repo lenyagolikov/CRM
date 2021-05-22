@@ -48,7 +48,15 @@ class LeadCreateView(OrganisorAndLoginRequiredMixin, generic.CreateView):
     """View for creating a new lead"""
     template_name = 'leads/lead_create.html'
     form_class = LeadForm
-
+    
+    def get_form_kwargs(self, **kwargs):
+        """Return the keyword arguments for instantiating the form"""
+        kwargs = super(LeadCreateView, self).get_form_kwargs(**kwargs)
+        kwargs.update({
+            "request": self.request
+        })
+        return kwargs
+    
     def form_valid(self, form):
         """Added organisation for a lead after creating"""
         lead = form.save(commit=False)

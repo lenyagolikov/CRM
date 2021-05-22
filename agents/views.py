@@ -71,7 +71,7 @@ class AgentUpdateView(generic.UpdateView):
 
     def get_success_url(self):
         """Redirect after successful update"""
-        return reverse("agents:agent-detail", kwargs={"slug": self.get_object().slug})
+        return reverse("agents:agent-detail", kwargs={"slug": self.get_object().user.username})
 
 
 class AgentDeleteView(generic.DeleteView):

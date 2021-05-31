@@ -15,6 +15,7 @@ logger = logging.getLogger(__name__)
 
 class LeadListView(LoginRequiredMixin, generic.ListView):
     """View for displaying leads"""
+    model = Lead
     template_name = 'leads/lead_list.html'
     context_object_name = 'leads'
 
@@ -31,7 +32,9 @@ class LeadListView(LoginRequiredMixin, generic.ListView):
 
 class LeadDetailView(LoginRequiredMixin, generic.DetailView):
     """View for displaying a lead"""
+    model = Lead
     template_name = 'leads/lead_detail.html'
+    context_object_name = 'lead'
 
     def get_queryset(self):
         """Filter leads, hides foreign leads"""
@@ -46,6 +49,7 @@ class LeadDetailView(LoginRequiredMixin, generic.DetailView):
 
 class LeadCreateView(OrganisorAndLoginRequiredMixin, generic.CreateView):
     """View for creating a new lead"""
+    model = Lead
     template_name = 'leads/lead_create.html'
     form_class = LeadForm
     
@@ -79,8 +83,18 @@ class LeadCreateView(OrganisorAndLoginRequiredMixin, generic.CreateView):
 
 class LeadUpdateView(OrganisorAndLoginRequiredMixin, generic.UpdateView):
     """View for updating an existing lead"""
+    model = Lead
     template_name = 'leads/lead_update.html'
+    context_object_name = 'lead'
     form_class = LeadForm
+
+    def get_form_kwargs(self, **kwargs):
+        """Return the keyword arguments for instantiating the form"""
+        kwargs = super(LeadUpdateView, self).get_form_kwargs(**kwargs)
+        kwargs.update({
+            "request": self.request
+        })
+        return kwargs
 
     def get_queryset(self):
         """Filter leads, hides foreign leads"""
@@ -94,7 +108,9 @@ class LeadUpdateView(OrganisorAndLoginRequiredMixin, generic.UpdateView):
 
 class LeadDeleteView(OrganisorAndLoginRequiredMixin, generic.DeleteView):
     """View for deleting the selected lead"""
+    model = Lead
     template_name = 'leads/lead_delete.html'
+    context_object_name = 'lead'
 
     def get_queryset(self):
         """Filter leads, hides foreign leads"""
@@ -108,6 +124,7 @@ class LeadDeleteView(OrganisorAndLoginRequiredMixin, generic.DeleteView):
 
 class AssignLeadView(OrganisorAndLoginRequiredMixin, generic.FormView):
     """Assign lead with an agent"""
+    model = Lead
     template_name = "leads/lead_assign.html"
     form_class = AssignLeadForm
 

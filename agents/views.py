@@ -10,6 +10,7 @@ from .mixins import OrganisorAndLoginRequiredMixin
 
 class AgentListView(OrganisorAndLoginRequiredMixin, generic.ListView):
     """View for displaying agents"""
+    model = Agent
     template_name = 'agents/agent_list.html'
     context_object_name = 'agents'
 
@@ -21,7 +22,9 @@ class AgentListView(OrganisorAndLoginRequiredMixin, generic.ListView):
 
 class AgentDetailView(generic.DetailView):
     """View for displaying an agent"""
+    model = Agent
     template_name = 'agents/agent_detail.html'
+    context_object_name = 'agent'
 
     def get_queryset(self):
         """Filter agents, hides foreign agents"""
@@ -31,6 +34,7 @@ class AgentDetailView(generic.DetailView):
 
 class AgentCreateView(OrganisorAndLoginRequiredMixin, generic.CreateView):
     """View for creating a new agent"""
+    model = Agent
     template_name = 'agents/agent_create.html'
     form_class = AgentForm
 
@@ -61,8 +65,10 @@ class AgentCreateView(OrganisorAndLoginRequiredMixin, generic.CreateView):
 
 class AgentUpdateView(generic.UpdateView):
     """View for updating an agent"""
+    model = Agent
     template_name = 'agents/agent_update.html'
     form_class = AgentForm
+    context_object_name = 'agent'
 
     def get_queryset(self):
         """Filter agents, hides foreign agents"""
@@ -76,7 +82,9 @@ class AgentUpdateView(generic.UpdateView):
 
 class AgentDeleteView(generic.DeleteView):
     """View for deleting the selected agent"""
+    model = Agent
     template_name = 'agents/agent_delete.html'
+    context_object_name = 'agent'
 
     def get_queryset(self):
         """Filter agents, hides foreign agents"""

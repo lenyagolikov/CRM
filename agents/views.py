@@ -47,6 +47,7 @@ class AgentCreateView(OrganisorAndLoginRequiredMixin, generic.CreateView):
         user.save()
         Agent.objects.create(
             user=user,
+            slug=user.username,
             organisation=self.request.user.userprofile
         )
         send_mail(

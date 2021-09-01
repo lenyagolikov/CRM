@@ -1,25 +1,24 @@
-# Basic CRM
-
-1. Move to directory where the manage.py is located
-2. Install requirements
-<pre> <code> pip install -r requirements.txt </code> </pre>
-3. Create database (in settings.py (folder - djcrm) congifure ONLY engine for DB)
-<pre>
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': env("DB_NAME"),
-        'USER': env("DB_USER"),
-        'PASSWORD': env("DB_PASSWORD"),
-        'HOST': env("DB_HOST"),
-        'PORT': env("DB_PORT"),
-    }
-}
-</pre>
-4. Create .env file using .template.env (in folder djcrm), fill in the fields (everything except mail), debug=True, any secret key, and database information. 
-5. Use migrations
-<pre> <code> python3 manage.py migrate </code> </pre>
-6. Create superuser, if you need
-<pre> <code> python3 manage.py createsuperuser </code> </pre>
-7. Run server
-<pre> <code> python3 manage.py runserver 5000 </code> </pre>
+# Базовый функционал CRM на Django
+#### Скачивание репозитория, создание и активация виртуального окружения
+    git clone https://github.com/lenyagolikov/CRM.git
+    cd CRM && python3 -m venv env
+    source env/bin/activate
+#### Установка нужных зависимостей
+    pip install -r requirements.txt
+#### Создание базы данных в PostgreSQL: в примере ниже lenyagolikov - имя пользователя, 1234 - пароль, djcrm - название БД
+    sudo -u root postgres psql
+    create user lenyagolikov with password '1234';
+    create database djcrm;
+    grant all privileges on database djcrm to lenyagolikov;
+#### Создайте файл .env в папке djcrm и скопируйте туда содержимое из .template.env, указав свои значения
+    DEBUG=True
+    SECRET_KEY='любой секретный ключ в строке'
+    DB_NAME=название БД
+    DB_USER=имя пользователя БД
+    DB_PASSWORD=пароль БД
+    DB_HOST=localhost
+    DB_PORT=5432
+#### Применение миграций, создание суперпользователя и запуск сервера
+    python3 manage.py migrate
+    python3 manage.py createsuperuser
+    python3 manage.py runserver
